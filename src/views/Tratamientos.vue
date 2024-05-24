@@ -45,7 +45,31 @@
             }
         },
         methods:{
-            
+            deleteTratamiento(codigo){
+                Swal.fire({
+                    title: "Are you sure you want to delete it?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`http://localhost:8000/api/tratamientos/${codigo}`)
+                    .then(response => {
+                        if (response.data.success){
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            this.tratamientos = response.data.tratamientos;
+                        }
+                    });
+                }
+                });
+            },
             editTratamiento(id){
                 this.$router.push({name: "EditarTratamiento", params: {id: `${id}`}})
             },
