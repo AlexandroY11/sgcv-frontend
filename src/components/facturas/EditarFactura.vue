@@ -19,17 +19,18 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="">Cita</label>
+                        <label for="tipo_cita">Tipo de Cita</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="bank" /></div>
                             <select class="form-select" v-model="factura.cita_id" required>
-                                <option disabled selected>Eligir cita</option>
+                                <option disabled selected>Elegir cita</option>
                                 <option v-for="cita in citas" :value="cita.id" :key="cita.id">
                                     {{ cita.tipo }}
                                 </option>
                             </select>
                         </div>
                     </div>
+
                     
                     <div class="row mb-3">
                         <label for="total">Total</label>
@@ -48,6 +49,7 @@
                             v-model="factura.fecha_emision" required>
                         </div>
                     </div>
+
                     
                     <div class="row mb-3">
                         <label for="estado">Estado</label>
@@ -116,14 +118,20 @@ export default {
 
         }
     },
-    mounted(){
+    mounted() {
         this.factura.id = this.$route.params.id;
 
         axios.get(`http://localhost:8000/api/facturas/${this.factura.id}`)
             .then(response => {
                 this.factura = response.data.factura;
-            })
+            });
+
+        axios.get('http://localhost:8000/api/citas')
+            .then(response => {
+                this.citas = response.data.citas;
+            });
     },
+
 
 }
 

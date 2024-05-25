@@ -18,7 +18,7 @@
             <tbody>
                 <tr v-for="(factura, index) in facturas" :key="index">
                     <th scope="row">{{factura.id}}</th>
-                    <td>{{factura.tipo_cita}}</td>
+                    <td>{{factura.tipo}}</td>
                     <td>{{factura.total}}</td>
                     <td>{{factura.fecha_emision}}</td>
                     <td>{{factura.estado}}</td>
