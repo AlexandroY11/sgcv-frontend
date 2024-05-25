@@ -49,7 +49,31 @@
             }
         },
         methods:{
-            
+            deleteEmpleado(codigo){
+                Swal.fire({
+                    title: "¿Estás seguro de eliminar el empleado?",
+                    text: "No podrás revertir esta acción",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, eliminarlo!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`http://localhost:8000/api/empleados/${codigo}`)
+                    .then(response => {
+                        if (response.data.success){
+                            Swal.fire({
+                                title: "Eliminado!",
+                                text: "El empleado ha sido eliminado.",
+                                icon: "success"
+                            });
+                            this.empleados = response.data.empleados;
+                        }
+                    });
+                }
+                });
+            },
             editEmpleado(id){
                 this.$router.push({name: "EditarEmpleado", params: {id: `${id}`}})
             },
