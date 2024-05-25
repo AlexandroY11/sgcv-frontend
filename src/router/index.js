@@ -91,7 +91,7 @@ const routes = [
   },
   {
     path: '/add-paciente',
-    name: 'Newpaciente',
+    name: 'NewPaciente',
     component: NewPaciente
   },
   {
