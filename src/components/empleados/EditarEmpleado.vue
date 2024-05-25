@@ -1,65 +1,59 @@
 <template>
     <div class="container text-start">
         <h1 class="text-primary fw-bold">
-            Edit
+            Editar
         </h1>
         <div class="card">
             <div class="card-header fw-bold">
-                Product
+                Empleado
             </div>
             <div class="card-body">
-                <form @submit.prevent="updateProduct">
+                <form @submit.prevent="updateEmpleado">
                     <div class="row mb-3">
-                        <label for="id">Code</label>
+                        <label for="id">Id</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="tag" /></div>
-                            <input type="text" class="form-control" id="id" placeholder="Product code" disabled 
-                            v-model="product.id">
+                            <input type="text" class="form-control" id="id" placeholder="Id de empleado" disabled 
+                            v-model="empleado.id">
                         </div>
                     </div>
                     
                     <div class="row mb-3">
-                        <label for="name">Name</label>
+                        <label for="nombre">Nombre</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="building" /></div>
-                            <input type="text" class="form-control" id="name" placeholder="Product name"  
-                            v-model="product.name" required>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre del empleado"  
+                            v-model="empleado.nombre" required>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
-                        <label for="price">Price</label>
+                        <label for="apellido">Apellido</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="bank" /></div>
-                            <input type="number" class="form-control" id="price" placeholder="Product price"  
-                            v-model="product.price" required>
+                            <input type="text" class="form-control" id="apellido" placeholder="Apellido de empleado"  
+                            v-model="empleado.apellido" required>
                         </div>
                     </div>
-                    
                     <div class="row mb-3">
-                        <label for="stock">Stock</label>
+                        <label for="cargo">Cargo</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="bank" /></div>
-                            <input type="number" class="form-control" id="stock" placeholder="Product stock"  
-                            v-model="product.stock" required>
+                            <input type="text" class="form-control" id="cargo" placeholder="Cargo de empleado"  
+                            v-model="empleado.cargo" required>
                         </div>
                     </div>
-                    
                     <div class="row mb-3">
-                        <label for="stock">Product</label>
+                        <label for="salario">Salario</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="bank" /></div>
-                            <select class="form-select" v-model="product.category_id" required>
-                                <option disabled selected>Choose a product...</option>
-                                <option v-for="category in categories" :value="category.id" :key="category.id">
-                                    {{ category.name }}
-                                </option>
-                            </select>
+                            <input type="number" class="form-control" id="salario" placeholder="Salario de empleado"  
+                            v-model="empleado.salario" required>
                         </div>
                     </div>
 
-                    <button class="btn btn-primary" type="submit">Update</button>
-                    <button class="btn btn-danger mx-2" @click="cancelar">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Actualizar</button>
+                    <button class="btn btn-danger mx-2" @click="cancelar">Cancelar</button>
 
                 </form>
             </div>
@@ -72,10 +66,10 @@ import axios from "axios"
 import Swal from "sweetalert2"
 
 export default { 
-    name: "EditarProduct",
+    name: "EditarEmpleado",
     data(){
         return{
-            product: {
+            empleado: {
                 id: 0,
                 name: '',
                 price: 0,
@@ -87,39 +81,39 @@ export default {
     },
     methods:{
         cancelar(){
-            this.$router.push({name: 'Products'})
+            this.$router.push({name: 'Empleados'})
         },
 
-        async updateProduct(){
+        async updateEmpleado(){
             try {
-                const res = await axios.put(`http://localhost:8000/api/products/${this.product.id}`, this.product);
+                const res = await axios.put(`http://localhost:8000/api/empleados/${this.empleado.id}`, this.empleado);
                 if (res.status == 200) {
-                    this.$router.push({name: 'Products'});
+                    this.$router.push({name: 'Empleados'});
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Product has been updated successfully',
+                        title: 'Empleado has been updated successfully',
                         showConfirmationButton: false,
                         timer: 2000
                     });
                 }
             } catch (error) {
-                console.error('Error actualizando la product:', error);
+                console.error('Error actualizando la empleado:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'No se pudo actualizar la product. Por favor, intente de nuevo.',
+                    text: 'No se pudo actualizar la empleado. Por favor, intente de nuevo.',
                 });
             }
 
         }
     },
     mounted(){
-        this.product.id = this.$route.params.id;
+        this.empleado.id = this.$route.params.id;
 
-        axios.get(`http://localhost:8000/api/products/${this.product.id}`)
+        axios.get(`http://localhost:8000/api/empleados/${this.empleado.id}`)
             .then(response => {
-                this.product = response.data.product;
+                this.empleado = response.data.empleado;
                 this.categories = response.data.categories;
             })
     },
