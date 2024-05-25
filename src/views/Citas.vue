@@ -49,7 +49,31 @@
             }
         },
         methods:{
-            
+            deleteCita(codigo){
+                Swal.fire({
+                    title: "¿Estás seguro de eliminar la cita?",
+                    text: "No podrás revertir esta acción",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, eliminarlo!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`http://localhost:8000/api/citas/${codigo}`)
+                    .then(response => {
+                        if (response.data.success){
+                            Swal.fire({
+                                title: "Eliminado!",
+                                text: "La cita ha sido eliminado.",
+                                icon: "success"
+                            });
+                            this.citas = response.data.citas;
+                        }
+                    });
+                }
+                });
+            },
             editCita(id){
                 this.$router.push({name: "EditarCita", params: {id: `${id}`}})
             },
