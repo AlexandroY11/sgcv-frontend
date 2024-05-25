@@ -1,11 +1,29 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import Tratamientos from '../views/Tratamientos.vue'
+import NewTratamiento from '@/components/tratamientos/NewTratamiento.vue'
+import EditarTratamiento from '@/components/tratamientos/EditarTratamiento.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/tratamientos',
+    name: 'Tratamientos',
+    component: Tratamientos
+  },
+  {
+    path: '/add-tratamiento',
+    name: 'NewTratamiento',
+    component: NewTratamiento
+  },
+  {
+    path: '/editar-tratamiento/:id',
+    name: 'EditarTratamiento',
+    component: EditarTratamiento
   },
   {
     path: '/about',
