@@ -4,6 +4,8 @@ import Tratamientos from '../views/Tratamientos.vue'
 import NewTratamiento from '@/components/tratamientos/NewTratamiento.vue'
 import EditarTratamiento from '@/components/tratamientos/EditarTratamiento.vue'
 import HistoriasClinicas from '@/views/HistoriasClinicas.vue'
+import NewHistoriaClinica from '@/components/historiasClinicas/NewHistoriaClinica.vue'
+import EditarHistoriaClinica from '@/components/historiasClinicas/EditarHistoriaClinica.vue'
 
 const routes = [
   {
@@ -31,16 +33,16 @@ const routes = [
     name: 'HistoriasClinicas',
     component: HistoriasClinicas
   },
-  // {
-  //   path: '/add-tratamiento',
-  //   name: 'NewTratamiento',
-  //   component: NewTratamiento
-  // },
-  // {
-  //   path: '/editar-tratamiento/:id',
-  //   name: 'EditarTratamiento',
-  //   component: EditarTratamiento
-  // },
+  {
+    path: '/add-historiaClinica',
+    name: 'NewHistoriaClinica',
+    component: NewHistoriaClinica
+  },
+  {
+    path: '/editar-historiaClinica/:id',
+    name: 'EditarHistoriaClinica',
+    component: EditarHistoriaClinica
+  },
   {
     path: '/about',
     name: 'about',
