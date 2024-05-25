@@ -43,31 +43,7 @@
             }
         },
         methods:{
-            deleteHistoriaClinica(codigo){
-                Swal.fire({
-                    title: "¿Estás seguro de eliminar la historia clínica?",
-                    text: "No podrás revertir esta acción",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, eliminarlo!"
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    axios.delete(`http://localhost:8000/api/historiasClinicas/${codigo}`)
-                    .then(response => {
-                        if (response.data.success){
-                            Swal.fire({
-                                title: "Eliminado!",
-                                text: "La historia clínica ha sido eliminado.",
-                                icon: "success"
-                            });
-                            this.historiasClinicas = response.data.historialesMedicos;
-                        }
-                    });
-                }
-                });
-            },
+            
             editHistoriaClinica(id){
                 this.$router.push({name: "EditarHistoriaClinica", params: {id: `${id}`}})
             },

@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Tratamientos from '../views/Tratamientos.vue'
 import NewTratamiento from '@/components/tratamientos/NewTratamiento.vue'
 import EditarTratamiento from '@/components/tratamientos/EditarTratamiento.vue'
+import HistoriasClinicas from '@/views/HistoriasClinicas.vue'
 
 const routes = [
   {
@@ -25,6 +26,21 @@ const routes = [
     name: 'EditarTratamiento',
     component: EditarTratamiento
   },
+  {
+    path: '/historias-clinicas',
+    name: 'HistoriasClinicas',
+    component: HistoriasClinicas
+  },
+  // {
+  //   path: '/add-tratamiento',
+  //   name: 'NewTratamiento',
+  //   component: NewTratamiento
+  // },
+  // {
+  //   path: '/editar-tratamiento/:id',
+  //   name: 'EditarTratamiento',
+  //   component: EditarTratamiento
+  // },
   {
     path: '/about',
     name: 'about',
