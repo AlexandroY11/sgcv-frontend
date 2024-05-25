@@ -53,7 +53,31 @@
             }
         },
         methods:{
-            
+            deletePaciente(codigo){
+                Swal.fire({
+                    title: "¿Estás seguro de eliminar la paciente?",
+                    text: "No podrás revertir esta acción",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, eliminarlo!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`http://localhost:8000/api/pacientes/${codigo}`)
+                    .then(response => {
+                        if (response.data.success){
+                            Swal.fire({
+                                title: "Eliminado!",
+                                text: "La paciente ha sido eliminado.",
+                                icon: "success"
+                            });
+                            this.pacientes = response.data.pacientes;
+                        }
+                    });
+                }
+                });
+            },
             editPaciente(id){
                 this.$router.push({name: "EditarPaciente", params: {id: `${id}`}})
             },
