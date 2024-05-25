@@ -12,6 +12,7 @@
                 <th scope="col">Fecha</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Nombre Empleado</th>
+                <th scope="col">Estado cita</th>
                 <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <td>{{cita.fecha_hora}}</td>
                     <td>{{cita.tipo}}</td>
                     <td>{{cita.nombre_empleado}}</td>
+                    <td>{{cita.estado}}</td>
                     <td>
                         <button @click="deleteCita(cita.id)" class="btn btn-danger mx-2">
                             <font-awesome-icon icon="trash" />

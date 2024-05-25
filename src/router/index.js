@@ -16,6 +16,8 @@ import Pacientes from '@/views/Pacientes.vue'
 import NewPaciente from '@/components/pacientes/NewPaciente.vue'
 import EditarPaciente from '@/components/pacientes/EditarPaciente.vue'
 import Citas from '@/views/Citas.vue'
+import NewCita from '@/components/citas/NewCita.vue'
+import EditarCita from '@/components/citas/EditarCita.vue'
 
 
 const routes = [
@@ -103,6 +105,16 @@ const routes = [
     path: '/citas',
     name: 'Citas',
     component: Citas
+  },
+  {
+    path: '/add-cita',
+    name: 'NewCita',
+    component: NewCita
+  },
+  {
+    path: '/editar-cita/:id',
+    name: 'EditarCita',
+    component: EditarCita
   },
   {
     path: '/about',
