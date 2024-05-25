@@ -1,7 +1,7 @@
 <template>
     <div class="container text-start">
         <h1 class="text-primary fw-bold">
-            Crear
+            Crear Historia Clínica
         </h1>
         <div class="card">
             <div class="card-header fw-bold">
@@ -10,26 +10,16 @@
             <div class="card-body">
                 <form @submit.prevent="saveHistoriaClinica">
                     <div class="row mb-3">
-                        <label for="id">Id</label>
-                        <div class="input-group">
-                            <div class="input-group-text"><font-awesome-icon icon="tag" /></div>
-                            <input type="text" class="form-control" id="id" placeholder="Id de Historia clínica" disabled 
-                            v-model="historiaClinica.id">
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-3">
                         <label for="detalles">Detalles</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="building" /></div>
-                            <textarea type="text" class="form-control" id="detalles" placeholder="Detalles de la Historia clínica"  
+                            <textarea type="text" class="form-control" id="detalles" placeholder="Detalles de la Historia Clínica"  
                             v-model="historiaClinica.detalles" required></textarea>
                         </div>
                     </div>
                     
                     <button class="btn btn-primary" type="submit">Guardar</button>
                     <button class="btn btn-danger mx-2" @click="cancelar">Cancelar</button>
-
                 </form>
             </div>
         </div>
@@ -37,15 +27,14 @@
 </template>
 
 <script>
-import axios from "axios"
-import Swal from "sweetalert2"
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
     name: "NewHistoriaClinica",
-    data(){
-        return{
+    data() {
+        return {
             historiaClinica: {
-                id: 0,
                 detalles: '',
             }
         }
@@ -54,16 +43,15 @@ export default {
         cancelar() {
             this.$router.push({ name: 'HistoriasClinicas' });
         },
-
         async saveHistoriaClinica() {
             try {
-                const res = await axios.post('http://localhost:8000/api/historiasClinicas', this.historiaClinica);
+                const res = await axios.post('http://localhost:8000/api/historialesMedicos', this.historiaClinica);
 
                 if (res.status === 200) { 
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Historia clínica ha sido creado correctamente',
+                        title: 'Historia Clínica creada correctamente',
                         showConfirmButton: false,
                         timer: 2000
                     }).then(() => {
@@ -75,11 +63,10 @@ export default {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'No se pudo crear la historia clínica. Por favor, intente de nuevo.',
+                    text: 'No se pudo crear la historia clínica. Por favor, inténtelo de nuevo.',
                 });
             }
         }
     },
-    
 }
 </script>

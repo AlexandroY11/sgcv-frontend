@@ -75,8 +75,7 @@ export default {
                 price: 0,
                 stock: 0,
                 category_id: 0,
-            },
-            categories: []
+            }
         }
     },
     methods:{

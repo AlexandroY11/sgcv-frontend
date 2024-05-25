@@ -54,7 +54,7 @@
                     confirmButtonText: "Si, eliminarlo!"
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`http://localhost:8000/api/historiasClinicas/${codigo}`)
+                    axios.delete(`http://localhost:8000/api/historialesMedicos/${codigo}`)
                     .then(response => {
                         if (response.data.success){
                             Swal.fire({
@@ -77,7 +77,7 @@
         },
         mounted(){
             axios
-                .get("http://localhost:8000/api/historiasClinicas")
+                .get("http://localhost:8000/api/historialesMedicos")
                 .then(response => (this.historiasClinicas = response.data.historialesMedicos))
         },
     }

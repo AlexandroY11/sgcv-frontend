@@ -1,11 +1,11 @@
 <template>
     <div class="container text-start">
         <h1 class="text-primary fw-bold">
-            Editar
+            Editar Historia Clínica
         </h1>
         <div class="card">
             <div class="card-header fw-bold">
-                HistoriaClinica
+                Historia Clínica
             </div>
             <div class="card-body">
                 <form @submit.prevent="updateHistoriaClinica">
@@ -37,58 +37,61 @@
 </template>
 
 <script>
-import axios from "axios"
-import Swal from "sweetalert2"
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
     name: "EditarHistoriaClinica",
-    data(){
-        return{
-            historialesMedicos:{
-                id:0,
-                descripcion:'',
-                costo: 0,
+    data() {
+        return {
+            historiaClinica: {
+                id: 0,
+                detalles: '',
             }
         }
     },
-    methods:{
-        cancelar(){
-            this.$router.push({name: 'HistoriasClinicas'})
+    methods: {
+        cancelar() {
+            this.$router.push({ name: 'HistoriasClinicas' });
         },
-
-        async updateHistoriaClinica(){
+        async updateHistoriaClinica() {
             try {
-                const res = await axios.put(`http://localhost:8000/api/historiasClinicas/${this.historiaClinica.id}`, this.historiaClinica);
-                if (res.status == 200) {
-                    this.$router.push({name: 'HistoriasClinicas'});
+                const res = await axios.put(`http://localhost:8000/api/historialesMedicos/${this.historiaClinica.id}`, this.historiaClinica);
+                if (res.status === 200) {
+                    this.$router.push({ name: 'HistoriasClinicas' });
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'HistoriaClinica hasido actualizado correctamente',
+                        title: 'Historia Clínica actualizada correctamente',
                         showConfirmationButton: false,
                         timer: 2000
                     });
                 }
             } catch (error) {
-                console.error('Error actualizando la historiaClinica:', error);
+                console.error('Error actualizando la historia clínica:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'No se pudo actualizar la historiaClinica. Por favor, intente de nuevo.',
+                    text: 'No se pudo actualizar la historia clínica. Por favor, inténtelo de nuevo.',
                 });
             }
-
         }
     },
-    mounted(){
-        this.historiasClinicas.id = this.$route.params.id;
+    mounted() {
+        this.historiaClinica.id = this.$route.params.id;
 
-        axios.get(`http://localhost:8000/api/historiasClinicas/${this.historiaClinica.id}`)
+        axios.get(`http://localhost:8000/api/historialesMedicos/${this.historiaClinica.id}`)
             .then(response => {
-                this.historiaClinica = response.data.historialesMedicos;
+                this.historiaClinica = response.data.historialMedico;
             })
+            .catch(error => {
+                console.error('Error obteniendo la historia clínica:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo obtener la historia clínica. Por favor, inténtelo de nuevo.',
+                });
+            });
     },
-
 }
-
 </script>
