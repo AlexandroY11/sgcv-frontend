@@ -6,6 +6,17 @@ import EditarTratamiento from '@/components/tratamientos/EditarTratamiento.vue'
 import HistoriasClinicas from '@/views/HistoriasClinicas.vue'
 import NewHistoriaClinica from '@/components/historiasClinicas/NewHistoriaClinica.vue'
 import EditarHistoriaClinica from '@/components/historiasClinicas/EditarHistoriaClinica.vue'
+import Facturas from '../views/Facturas.vue'
+import NewFactura from '@/components/facturas/NewFactura.vue'
+import EditarFactura from '@/components/facturas/EditarFactura.vue'
+import Empleados from '@/views/Empleados.vue'
+import NewEmpleado from '@/components/empleados/NewEmpleado.vue'
+import EditarEmpleado from '@/components/empleados/EditarEmpleado.vue'
+import Pacientes from '@/views/Pacientes.vue'
+import NewPaciente from '@/components/pacientes/NewPaciente.vue'
+import EditarPaciente from '@/components/pacientes/EditarPaciente.vue'
+import Citas from '@/views/Citas.vue'
+
 
 const routes = [
   {
@@ -42,6 +53,56 @@ const routes = [
     path: '/editar-historiaClinica/:id',
     name: 'EditarHistoriaClinica',
     component: EditarHistoriaClinica
+  },
+  {
+    path: '/facturas',
+    name: 'Facturas',
+    component: Facturas
+  },
+  {
+    path: '/add-factura',
+    name: 'NewFactura',
+    component: NewFactura
+  },
+  {
+    path: '/editar-factura/:id',
+    name: 'EditarFactura',
+    component: EditarFactura
+  },
+  {
+    path: '/empleados',
+    name: 'Empleados',
+    component: Empleados
+  },
+  {
+    path: '/add-empleado',
+    name: 'NewEmpleado',
+    component: NewEmpleado
+  },
+  {
+    path: '/editar-empleado/:id',
+    name: 'EditarEmpleado',
+    component: EditarEmpleado
+  },
+  {
+    path: '/pacientes',
+    name: 'Pacientes',
+    component: Pacientes
+  },
+  {
+    path: '/add-paciente',
+    name: 'Newpaciente',
+    component: NewPaciente
+  },
+  {
+    path: '/editar-paciente/:id',
+    name: 'EditarPaciente',
+    component: EditarPaciente
+  },
+  {
+    path: '/citas',
+    name: 'Citas',
+    component: Citas
   },
   {
     path: '/about',

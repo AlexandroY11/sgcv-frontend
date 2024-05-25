@@ -47,7 +47,7 @@
                         <label for="salario">Salario</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="bank" /></div>
-                            <input type="text" class="form-control" id="salario" placeholder="Salario de empleado"  
+                            <input type="number" class="form-control" id="salario" placeholder="Salario de empleado"  
                             v-model="empleado.salario" required>
                         </div>
                     </div>

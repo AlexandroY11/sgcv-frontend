@@ -1,14 +1,14 @@
 <template>
     <div class="container text-start">
         <h1 class="text-primary fw-bold">
-            Crear
+            Editar
         </h1>
         <div class="card">
             <div class="card-header fw-bold">
-                Historia Clínica
+                HistoriaClinica
             </div>
             <div class="card-body">
-                <form @submit.prevent="saveHistoriaClinica">
+                <form @submit.prevent="updateHistoriaClinica">
                     <div class="row mb-3">
                         <label for="id">Id</label>
                         <div class="input-group">
@@ -26,8 +26,8 @@
                             v-model="historiaClinica.detalles" required></textarea>
                         </div>
                     </div>
-                    
-                    <button class="btn btn-primary" type="submit">Guardar</button>
+
+                    <button class="btn btn-primary" type="submit">Actualizar</button>
                     <button class="btn btn-danger mx-2" @click="cancelar">Cancelar</button>
 
                 </form>
@@ -41,45 +41,54 @@ import axios from "axios"
 import Swal from "sweetalert2"
 
 export default {
-    name: "NewHistoriaClinica",
+    name: "EditarHistoriaClinica",
     data(){
         return{
-            historiaClinica: {
-                id: 0,
-                detalles: '',
+            historialesMedicos:{
+                id:0,
+                descripcion:'',
+                costo: 0,
             }
         }
     },
-    methods: {
-        cancelar() {
-            this.$router.push({ name: 'HistoriasClinicas' });
+    methods:{
+        cancelar(){
+            this.$router.push({name: 'HistoriasClinicas'})
         },
 
-        async saveHistoriaClinica() {
+        async updateHistoriaClinica(){
             try {
-                const res = await axios.post('http://localhost:8000/api/historiasClinicas', this.historiaClinica);
-
-                if (res.status === 200) { 
+                const res = await axios.put(`http://localhost:8000/api/historiasClinicas/${this.historiaClinica.id}`, this.historiaClinica);
+                if (res.status == 200) {
+                    this.$router.push({name: 'HistoriasClinicas'});
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Historia clínica ha sido creado correctamente',
-                        showConfirmButton: false,
+                        title: 'HistoriaClinica hasido actualizado correctamente',
+                        showConfirmationButton: false,
                         timer: 2000
-                    }).then(() => {
-                        this.$router.push({ name: 'HistoriasClinicas' });
                     });
                 }
             } catch (error) {
-                console.error('Error creando la historia clínica:', error);
+                console.error('Error actualizando la historiaClinica:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'No se pudo crear la historia clínica. Por favor, intente de nuevo.',
+                    text: 'No se pudo actualizar la historiaClinica. Por favor, intente de nuevo.',
                 });
             }
+
         }
     },
-    
+    mounted(){
+        this.historiasClinicas.id = this.$route.params.id;
+
+        axios.get(`http://localhost:8000/api/historiasClinicas/${this.historiaClinica.id}`)
+            .then(response => {
+                this.historiaClinica = response.data.historialesMedicos;
+            })
+    },
+
 }
+
 </script>

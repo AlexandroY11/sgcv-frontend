@@ -1,20 +1,20 @@
 <template>
     <div class="container text-start">
         <h1 class="text-primary fw-bold">
-            Crear
+            Editar
         </h1>
         <div class="card">
             <div class="card-header fw-bold">
-                Tratamiento
+                Paciente
             </div>
             <div class="card-body">
-                <form @submit.prevent="saveTratamiento">
+                <form @submit.prevent="updatePaciente">
                     <div class="row mb-3">
-                        <label for="id">Id</label>
+                        <label for="id">Code</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="tag" /></div>
-                            <input type="text" class="form-control" id="id" placeholder="Id de tratamiento" disabled 
-                            v-model="tratamiento.id">
+                            <input type="text" class="form-control" id="id" placeholder="Id de paciente" disabled 
+                            v-model="paciente.id">
                         </div>
                     </div>
                     
@@ -22,8 +22,8 @@
                         <label for="descripcion">Descripción</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="building" /></div>
-                            <textarea type="text" class="form-control" id="descripcion" placeholder="Descripción del tratamiento"  
-                            v-model="tratamiento.descripcion" required></textarea>
+                            <textarea type="text" class="form-control" id="descripcion" placeholder="Descripción del paciente"  
+                            v-model="paciente.descripcion" required></textarea>
                         </div>
                     </div>
                     
@@ -31,12 +31,12 @@
                         <label for="costo">Costo</label>
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="bank" /></div>
-                            <input type="number" class="form-control" id="costo" placeholder="Costo de tratamiento"  
-                            v-model="tratamiento.costo" required>
+                            <input type="number" class="form-control" id="costo" placeholder="Costo de paciente"  
+                            v-model="paciente.costo" required>
                         </div>
                     </div>
 
-                    <button class="btn btn-primary" type="submit">Guardar</button>
+                    <button class="btn btn-primary" type="submit">Actualizar</button>
                     <button class="btn btn-danger mx-2" @click="cancelar">Cancelar</button>
 
                 </form>
@@ -50,46 +50,54 @@ import axios from "axios"
 import Swal from "sweetalert2"
 
 export default {
-    name: "NewTratamiento",
+    name: "EditarPaciente",
     data(){
         return{
-            tratamiento: {
-                id: 0,
-                descripcion: '',
+            paciente:{
+                id:0,
+                descripcion:'',
                 costo: 0,
             }
         }
     },
-    methods: {
-        cancelar() {
-            this.$router.push({ name: 'Tratamientos' });
+    methods:{
+        cancelar(){
+            this.$router.push({name: 'Pacientes'})
         },
 
-        async saveTratamiento() {
+        async updatePaciente(){
             try {
-                const res = await axios.post('http://localhost:8000/api/tratamientos', this.tratamiento);
-
-                if (res.status === 200) { 
+                const res = await axios.put(`http://localhost:8000/api/pacientes/${this.paciente.id}`, this.paciente);
+                if (res.status == 200) {
+                    this.$router.push({name: 'Pacientes'});
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Tratamiento ha sido creado correctamente',
-                        showConfirmButton: false,
+                        title: 'Paciente hasido actualizado correctamente',
+                        showConfirmationButton: false,
                         timer: 2000
-                    }).then(() => {
-                        this.$router.push({ name: 'Tratamientos' });
                     });
                 }
             } catch (error) {
-                console.error('Error creando el tratamiento:', error);
+                console.error('Error actualizando la paciente:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'No se pudo crear la tratamiento. Por favor, intente de nuevo.',
+                    text: 'No se pudo actualizar la paciente. Por favor, intente de nuevo.',
                 });
             }
+
         }
     },
-    
+    mounted(){
+        this.pacientes.id = this.$route.params.id;
+
+        axios.get(`http://localhost:8000/api/pacientes/${this.paciente.id}`)
+            .then(response => {
+                this.paciente = response.data.paciente;
+            })
+    },
+
 }
+
 </script>

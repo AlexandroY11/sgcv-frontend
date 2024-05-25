@@ -1,14 +1,14 @@
 <template>
     <div class="container text-start">
         <h1 class="text-primary fw-bold">
-            Crear
+            Editar
         </h1>
         <div class="card">
             <div class="card-header fw-bold">
                 Factura
             </div>
             <div class="card-body">
-                <form @submit.prevent="saveFactura">
+                <form @submit.prevent="updateFactura">
                     <div class="row mb-3">
                         <label for="id">Id</label>
                         <div class="input-group">
@@ -60,11 +60,8 @@
                         </div>
                     </div>
 
-                    
-                    
-
-                    <button class="btn btn-primary" type="submit">Save</button>
-                    <button class="btn btn-danger mx-2" @click="cancelar">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Actualizar</button>
+                    <button class="btn btn-danger mx-2" @click="cancelar">Cancelar</button>
 
                 </form>
             </div>
@@ -77,7 +74,7 @@ import axios from "axios"
 import Swal from "sweetalert2"
 
 export default {
-    name: "NewFactura",
+    name: "EditarFactura",
     data(){
         return{
             factura: {
@@ -90,45 +87,44 @@ export default {
             citas: []
         }
     },
-    methods: {
-        cancelar() {
-            this.$router.push({ name: 'Facturas' });
+    methods:{
+        cancelar(){
+            this.$router.push({name: 'Facturas'})
         },
 
-        async saveFactura() {
+        async updateFactura(){
             try {
-                const res = await axios.post('http://localhost:8000/api/facturas', this.factura);
-
-                if (res.status === 200) { 
+                const res = await axios.put(`http://localhost:8000/api/facturas/${this.factura.id}`, this.factura);
+                if (res.status == 200) {
+                    this.$router.push({name: 'Facturas'});
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Factura has been created successfully',
-                        showConfirmButton: false,
+                        title: 'Factura hasido actualizado correctamente',
+                        showConfirmationButton: false,
                         timer: 2000
-                    }).then(() => {
-                        this.$router.push({ name: 'Facturas' });
                     });
                 }
             } catch (error) {
-                console.error('Error creating factura:', error);
+                console.error('Error actualizando la factura:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'No se pudo crear la factura. Por favor, intente de nuevo.',
+                    text: 'No se pudo actualizar la factura. Por favor, intente de nuevo.',
                 });
             }
+
         }
     },
     mounted(){
-        axios.get('http://localhost:8000/api/citas/')
+        this.facturas.id = this.$route.params.id;
+
+        axios.get(`http://localhost:8000/api/facturas/${this.factura.id}`)
             .then(response => {
-                this.citas = response.data.citas;
+                this.factura = response.data.factura;
             })
-            .catch(error => {
-                console.error('Error fetching citas:', error);
-            });
-    }
-    
+    },
+
 }
+
 </script>
