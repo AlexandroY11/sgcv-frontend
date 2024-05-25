@@ -117,7 +117,7 @@ export default {
         }
     },
     mounted(){
-        this.facturas.id = this.$route.params.id;
+        this.factura.id = this.$route.params.id;
 
         axios.get(`http://localhost:8000/api/facturas/${this.factura.id}`)
             .then(response => {

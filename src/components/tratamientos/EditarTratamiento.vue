@@ -90,7 +90,7 @@ export default {
         }
     },
     mounted(){
-        this.tratamientos.id = this.$route.params.id;
+        this.tratamiento.id = this.$route.params.id;
 
         axios.get(`http://localhost:8000/api/tratamientos/${this.tratamiento.id}`)
             .then(response => {
