@@ -47,21 +47,21 @@
         methods:{
             deleteTratamiento(codigo){
                 Swal.fire({
-                    title: "Are you sure you want to delete it?",
-                    text: "You won't be able to revert this!",
+                    title: "¿Estás seguro de eliminar el tratamiento?",
+                    text: "No podrás revertir esta acción",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
+                    confirmButtonText: "Si, eliminarlo!"
                 }).then((result) => {
                 if (result.isConfirmed) {
                     axios.delete(`http://localhost:8000/api/tratamientos/${codigo}`)
                     .then(response => {
                         if (response.data.success){
                             Swal.fire({
-                                title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                title: "Eliminado!",
+                                text: "El tratamiento ha sido eliminado.",
                                 icon: "success"
                             });
                             this.tratamientos = response.data.tratamientos;
